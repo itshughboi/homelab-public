@@ -1,0 +1,63 @@
+title: Home
+
+background:
+  image: https://wallpapercat.com/w/full/9/9/7/2112823-3840x2160-desktop-4k-minimalist-wallpaper-image.jpg 
+  #image: /images/'filename.jpg'
+  blur: sm # sm, "", md, xl...  # RECENTLY LEARNED THAT BLUR CAN SLOW DOWN APPLICATION. RATHER, PRE-BLEND IN PHOTOSHOP AND UPLOAD THAT see https://tailwindcss.com/docs/backdrop-blur
+  saturate: 60 # 0, 50, 100... see https://tailwindcss.com/docs/backdrop-saturate
+  brightness: 60 # 0, 50, 75... see https://tailwindcss.com/docs/backdrop-brightness
+  opacity: 30 # 0-100
+
+headerStyle: boxed
+theme: dark
+color: slate
+hideVersion: true
+useEqualHeights: true
+statusStyle: "dot" #This can show ms if you clear this line out or you can change it to "basic" for UP or DOWN
+
+showStats: true
+hideErrors: true
+
+
+layout:
+
+### NESTING EXAMPLE TO NEST APPS ON TOP OF EACH OTHER
+# Title:
+#   header: false
+#   style: row
+#   Nested Title:
+#     style: columns
+#     header: false
+
+  Proxmox:
+    style: row
+    columns: 4
+    icon: 
+
+  Networking:
+    style: row
+    columns: 4
+
+  Apps:
+    style: column
+  
+  Management:
+    style: column
+  
+  Monitoring:
+    style: column
+  
+  Security:
+    style: column
+
+  Storage:
+    style: column
+
+  Host:
+    style: column
+
+  Media:
+    style: column
+
+  Bookmarks:
+    style: column
