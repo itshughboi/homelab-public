@@ -40,6 +40,22 @@ services:
     networks:
       - proxy
 
+  runner:
+    container_name: gitea-runner
+    image: docker.io/gitea/act_runner:nightly
+    restart: unless-stopped
+    volumes:
+      - ./config.yaml:/config.yaml
+      - ./data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      CONFIG_FILE: /config.yaml
+      GITEA_INSTANCE_URL: "https://gitea.hughboi.cc"
+      GITEA_RUNNER_REGISTRATION_TOKEN: "${REGISTRATION_TOKEN}"
+      GITEA_RUNNER_NAME: "Hermes"
+      GITEA_RUNNER_LABELS: "${RUNNER_LABELS}"
+
+
 volumes:
   gitea-data:
 
