@@ -80,7 +80,7 @@ services:
     command: "-config.file=/etc/loki/config.yaml"
     user: "1000:1000"
     volumes:
-      - ./loki/config/config.yaml:/etc/loki/config.yaml:ro
+      - ./loki/config.yaml:/etc/loki/config.yaml:ro
       - ./loki/data:/loki:rw
     labels:
       - "traefik.enable=true"
