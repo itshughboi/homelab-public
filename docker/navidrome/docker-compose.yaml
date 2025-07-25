@@ -1,0 +1,41 @@
+services:
+  navidrome:
+    container_name: navidrome
+    image: deluan/navidrome:latest
+    restart: unless-stopped
+    environment:
+      ND_MUSICFOLDER: /music
+      ND_DBPATH: /data/navidrome.db
+      ND_SCANINTERVAL: 1h
+      ND_LOGLEVEL: info
+      ND_PORT: 4533
+    logging:
+      driver: loki
+      options:
+        loki-url: "https://loki.hughboi.cc/loki/api/v1/push"
+        loki-retries: 2
+        loki-max-backoff: 800ms
+        loki-timeout: 1s
+        keep-file: "true"
+        mode: "non-blocking"
+    volumes:
+      - ./data:/data
+      - ./music:/music:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.navidrome.entrypoints=http"
+      - "traefik.http.routers.navidrome.rule=Host(`navidrome.hughboi.cc`)"
+      - "traefik.http.middlewares.navidrome-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.navidrome.middlewares=navidrome-https-redirect"
+      - "traefik.http.routers.navidrome-secure.entrypoints=https"
+      - "traefik.http.routers.navidrome-secure.rule=Host(`navidrome.hughboi.cc`)"
+      - "traefik.http.routers.navidrome-secure.tls=true"
+      - "traefik.http.services.navidrome.loadbalancer.server.port=4533"
+      - "traefik.docker.network=proxy"
+    networks:
+      - proxy
+
+
+networks:
+  proxy:
+    external: true
